@@ -1,13 +1,13 @@
 const Pool = require('pg').Pool
 const pool = new Pool({
     //user required for docker/deployment
-  //user: 'admin',
+  user: 'admin',
   // for docker compose/deployment use 
-  //host: 'db'
-  host: 'localhost',
+  host: 'db',
+//   host: 'localhost',
   database: 'students_db',
   //password required for docker/deployment
-  //password: 'admin',
+  password: 'admin',
   port: 5432,
 })
 

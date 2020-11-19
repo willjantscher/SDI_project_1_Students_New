@@ -16,6 +16,11 @@ app.use(
     })
 )
 
+
+//use google drawings to desing the webpage
+
+
+
 const db = require('./queries')
 
 // test connections
@@ -36,6 +41,6 @@ app.post('/students',  (req, res) => db.addStudent(req, res))
     //     "credit": "5443"
     // }
 
-    
+
 //need this to function
 app.listen(port, () => console.log(`students server running on ${port}`));
