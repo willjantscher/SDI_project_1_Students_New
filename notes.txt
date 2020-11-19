@@ -1,0 +1,8 @@
+1. created server.js
+2. run npx create-react-app students in SDI_PROJECT_1_STUDENTS_NEW directory
+
+
+
+
+
+
