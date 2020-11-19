@@ -10,17 +10,8 @@ app.use(express.static(path.join(__dirname, 'build')));
 
 const db = require('./queries')
 
-app.get('/students', db.getStudents)
+app.get('/students', (req, res) => db.getStudents(req, res))
+app.get('/ping', (req, res) => db.ping(req, res))
 
-
-
-
-app.get('/ping', function (req, res) {
- return res.send('pong');
-});
-
-app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-app.listen(process.env.PORT || 6003);
+//need this to function
+app.listen(6003, () => console.log('students server running'));
