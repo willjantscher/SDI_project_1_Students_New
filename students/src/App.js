@@ -22,6 +22,9 @@ class App extends React.Component {
     }
   }
 
+  //do componenet did mount to get page setup with info for current student passed in as a cookie
+
+  
   render () {
     return (
       <div className="App">

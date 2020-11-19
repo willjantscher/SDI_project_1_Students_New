@@ -1,5 +1,5 @@
 # pull official base image
-FROM node:13.12.0-alpine
+FROM node:latest
 
 # set working directory
 WORKDIR /app
@@ -11,12 +11,15 @@ ENV PATH /app/node_modules/.bin:$PATH
 COPY package.json ./
 COPY package-lock.json ./
 
-RUN npm install 
-RUN npm install react-scripts@3.4.1 -g 
+RUN npm install
+# RUN npm install react-scripts@3.4.0 -g 
+# need latest react scripts
 
 # add app
 COPY . ./
 
-# start app
+# start app with npm start ofrom inside the container once it is created.
 CMD ["npm", "start"]
 
+
+# npm install concurrently --save"concurrently \"react-scripts start\" \"cd .\\src && node api.js\""
