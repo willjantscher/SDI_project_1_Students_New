@@ -27,7 +27,7 @@ services:
       links:
         - db
       ports:
-        - 6003:6004   #server should mount on port 6003
+        - 6003:6004   #server should mount on port 6003, 6004 is internal port for the server
 
     app:
       build: 
