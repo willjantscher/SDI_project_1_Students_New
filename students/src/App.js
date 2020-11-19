@@ -1,7 +1,7 @@
 //Student Microservice app
 //Will Jantscher
 //https://github.com/willjantscher/SDI_Project_1_Students
-//the react front end runs on localhost:6001
+//the react front end runs on localhost:600
 
 //npm install
 //npm install express --save
@@ -24,7 +24,7 @@ class App extends React.Component {
 
   //do componenet did mount to get page setup with info for current student passed in as a cookie
 
-  
+
   render () {
     return (
       <div className="App">

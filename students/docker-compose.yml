@@ -17,7 +17,7 @@ services:
     server:
       build: .
       command: npm run serverStart
-      image: willjantscher/students_server:latest #make sure to include this!
+      image: willjantscher/students_server:latest #make sure to include this!, references top-folder_service-name
       environment:
         - DATABASE_URL=postgres://admin:admin@db:5432
         - NODE_ENV=test
@@ -29,16 +29,23 @@ services:
       ports:
         - 6003:6004   #server should mount on port 6003
 
-    # app:
-    #   build: .
-    #   command: npm start
-    #   depends_on: 
-    #     - server
-    #   links:
-    #     - server
-    #   ports:
-    #     - 3001:3003
-
+    app:
+      build: 
+        context: .
+        dockerfile: Dockerfile
+      volumes:
+        - '.:/app'
+        - '/app/node_modules'
+      # command: npm start
+      # image: willjantscher/students_app:latest
+      depends_on: 
+        - server
+      links:
+        - server
+      ports:
+        - 6001:6000
+      environment:
+        - CHOKIDAR_USEPOLLING=true
 
 
     
