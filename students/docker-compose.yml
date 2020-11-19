@@ -1,0 +1,38 @@
+version: '2.1'
+
+services:
+    db:
+    image: postgres
+    healthcheck:
+      test: exit 0
+    ports:
+     - 5432:5432
+    environment:
+      - POSTGRES_DB=students
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    volumes:    # will let you start up an initial database with an sql file in the area
+        - ./init.sql:/docker-entrypoint-initdb.d/studentdbinit.sql
+
+    server:
+      build: .
+      command: nodemon server.js
+      environment:
+        - DATABASE_URL=postgres://admin:admin@db:5432
+        - NODE_ENV=test
+      depends_on:
+        db:
+          condition: service_healthy
+      links:
+        - db
+      ports:
+        - 6000:3003
+
+    app:
+      build: .
+      command: npm start
+      depends_on: server
+      links:
+        - server
+      ports:
+        - 3001:3003
