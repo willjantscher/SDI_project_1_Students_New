@@ -1,0 +1,14 @@
+Functionality:
+1. database mounts with postgressql, react runs on port 6001, all with docker-compose file
+
+
+
+To go into Testing mode (with local database)
+    in App.js   
+        set port=testPort;
+    in server.js    
+        comment out user 
+        comment out password
+        change host to "localhost"
+    brew services start postgressql
+
