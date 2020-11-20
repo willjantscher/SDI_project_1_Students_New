@@ -1,3 +1,47 @@
+table.classy {
+  border: 1px solid #1C6EA4;
+  background-color: #000277;
+  width: 100%;
+  text-align: left;
+  border-collapse: collapse;
+}
+table.classy td, table.classy th {
+  border: 1px solid #9fd0e7;
+  padding: 3px 2px;
+}
+table.classy tbody td {
+  font-size: 13px;
+}
+table.classy tr:nth-child(even) {
+  background: #202830;
+}
+table.classy thead {
+  background: #003152;
+  background: -moz-linear-gradient(top, #00253d 0%, #053c61 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #00253d 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #00253d 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.classy thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.classy thead th:first-child {
+  border-left: none;
+}
+
+
+
+
+
+
+
+
+
+
+
 .App {
   text-align: center;
 }
