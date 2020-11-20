@@ -53,6 +53,7 @@ app.post('/courses', (req, res) => db.postCourse(req, res))
 
 //students_courses table with joins--------------------------------------------------------------------------------------------------
 app.get('/courses/:studentId', (req, res) => db.getStudentCourses(req, res));
+//ADD a way to add to table when students enroll in courses
 
 
 
