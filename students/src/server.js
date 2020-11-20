@@ -17,7 +17,11 @@ app.use(
 )
 
 
-//use google drawings to desing the webpage
+//use google drawings to design the webpage
+//finalize db format for studentDB
+//add studentDBinit.sql for other people to initialize in their containers
+//make students_courses table and post request handling
+//get courses for a student (know the courses table post format)
 
 
 
@@ -31,7 +35,10 @@ app.get('/ping', (req, res) => db.ping(req, res))
 // returns all students and info
 app.get('/students', (req, res) => db.getStudents(req, res))
 
-app.post('/students',  (req, res) => db.addStudent(req, res))
+// return student with requested id
+app.get('/students/:studentId', (req, res) => db.getStudentById(req, res));
+
+app.post('/students', (req, res) => db.addStudent(req, res))
 // example post format
     // {
     //     "first_name": "bobby",
@@ -40,7 +47,6 @@ app.post('/students',  (req, res) => db.addStudent(req, res))
     //     "password": "hmmm",
     //     "credit": "5443"
     // }
-
 
 //need this to function
 app.listen(port, () => console.log(`students server running on ${port}`));

@@ -1,6 +1,5 @@
-1. created server.js
-2. run npx create-react-app students in SDI_PROJECT_1_STUDENTS_NEW directory
-
+Functionality:
+1. database mounts with postgressql, react runs on port 6001, all with docker-compose file
 
 
 
