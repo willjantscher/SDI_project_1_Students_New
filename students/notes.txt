@@ -10,5 +10,23 @@ To go into Testing mode (with local database)
         comment out user 
         comment out password
         change host to "localhost"
-    brew services start postgressql
+    brew services start postgresql
 
+Monday to do
+
+0. make a get request that takes in the student name and password
+
+1. add picture to profile and options to change picture, also store picture settings in database
+    2. set up cookies to pass in student id and to retrieve student id when loading page
+3. create gant chart for scheduling study stuff
+4. save gant chart in database
+5. dockerize whole project and push to docker hub
+
+also add db queries to render and keep searching for the database periodically? every 1 sec or so?
+
+
+
+
+CREATE two requests that will run on login
+    one sets cookie
+    the other will send back the info

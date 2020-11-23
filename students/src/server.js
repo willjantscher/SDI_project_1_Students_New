@@ -2,8 +2,11 @@
 //start react app with npm start
     //in cd src
 // const fs = require("fs")
+
 const express = require('express');
 const bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+
 const path = require('path');
 const app = express();
 const port = 6004;
@@ -15,7 +18,18 @@ app.use(
         extended: true,
     })
 )
+app.use(bodyParser.json())
+app.use(cookieParser())
 
+//allow cors
+var cors = require('cors');
+app.use(cors());
+
+// app.use(function(req, res, next) {  
+//     res.header('Access-Control-Allow-Origin', req.headers.origin);
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// }); 
 
 //use google drawings to design the webpage
 //finalize db format for studentDB
@@ -44,19 +58,38 @@ app.post('/students', (req, res) => db.addStudent(req, res))
     //     "last_name": "dubm",
     //     "username": "hello",
     //     "password": "hmmm",
-    //     "credit": "5443"
+    //     "credit": "5443",
+    //     "profile_picture: 1"
     // }
+//update profile picture in database
+app.get('/profilepic', (req, res) => db.updateProfilePic(req, res))
+//http://localhost:6004/profilepic
+
+
+
+//login query
+//will take in username and password
+//respond with true or false
+//if true, set cookie
+app.get('/login', (req, res) => db.studentLogin(req, res))
+//http://localhost:6004/login?username=something&password=something
+
 
 //courses table--------------------------------------------------------------------------------------------------
 app.get('/courses', (req, res) => db.getCourses(req, res))
 app.post('/courses', (req, res) => db.postCourse(req, res))
 
 //students_courses table with joins--------------------------------------------------------------------------------------------------
+//get classes that student is in
 app.get('/courses/:studentId', (req, res) => db.getStudentCourses(req, res));
-//ADD a way to add to table when students enroll in courses
-
-
-
+//add a class for a student
+app.post('/students_courses', (req, res) => db.postCourse(req, res))
+//
+// {
+//     "student_id": 1,
+//     "course_id": 2
+// }
+app.get('/cookie', (req, res) => db.getCookie(req, res))
 
 
 

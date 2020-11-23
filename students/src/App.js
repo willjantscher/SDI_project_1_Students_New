@@ -1,8 +1,8 @@
 //Student Microservice app
 //Will Jantscher
 //https://github.com/willjantscher/SDI_Project_1_Students
-//the react front end runs on localhost:600
-
+//the react front end runs on localhost:6002 or 6003 on docker
+//https://app.diagrams.net/#G1Lv49geXhtRD7t88zu8SpjHmqQDpfSxgc
 //npm install
 //npm install express --save
 //npm run start
@@ -13,6 +13,18 @@ import './App.css';
 import React from 'react'
 import loadingGif from './Loading2.gif'
 import studyingGif from './Studying.gif'
+import ProfilePicture from './ProfilePicture'
+
+
+//import the pictures
+import dog_0 from './Profile_pictures/dog_0.jpg'
+import dog_1 from './Profile_pictures/dog_1.jpg'
+import dog_2 from './Profile_pictures/dog_2.jpg'
+import dog_3 from './Profile_pictures/dog_3.jpg'
+import dog_4 from './Profile_pictures/dog_4.jpg'
+
+import Cookies from 'universal-cookie';
+const cookies = new Cookies();
 
 // used for testing
 const testPort = 6004;
@@ -30,14 +42,22 @@ class App extends React.Component {
         first_name: "",
         last_name: "",
         username: "",
-        password: ""
+        password: "",
+        profile_picture: 0
       },
       studentQuery: false,
       studentCourses: [],
-      courseQuery: false
+      courseQuery: false,
+      images: 
+      [
+        dog_0,
+        dog_1,
+        dog_2,
+        dog_3,
+        dog_4
+      ]
     }
   }
-
   //greet the student by name when loggin in
   Welcome() {
     // console.log(this.state.studentInfo.first_name)
@@ -55,7 +75,9 @@ class App extends React.Component {
                   )
               default:
                   return (
-                    <h1>Welcome {this.state.studentInfo.first_name} {this.state.studentInfo.last_name}</h1>
+                    <h1>
+                      Welcome {this.state.studentInfo.first_name} {this.state.studentInfo.last_name}
+                    </h1>
                   )
            }
         })()}
@@ -79,9 +101,10 @@ class App extends React.Component {
                 )
               })
               return(
-                <table id="classes" class="classy">
+                <div>
+                <div>Your Classes:</div>
+                <table id="classes" className="classy">
                   <thead>
-                    <th>Your Classes</th>
                     <tr>
                       <td>Class</td>
                       <td>Instructor</td>
@@ -89,6 +112,7 @@ class App extends React.Component {
                   </thead>
                   <tbody>{output}</tbody>
                 </table>
+                </div>
               )
             default:
               // console.log('searching database for courses')
@@ -105,29 +129,63 @@ class App extends React.Component {
     )   
   }
 
-  //do componenet did mount to get page setup with info for current student passed in as a cookie
+  // do componenet did mount to get page setup with info for current student passed in as a cookie
   componentDidMount() { 
     //for testing, providing a simulated id that will be passed in via a cookie
-    let id = 2;
-    //load the student's data from the student_db when loading this page
-    fetch(`http://localhost:${port}/students/${id}`)
-      .then((res) => res.json())
-      .then((result) => {
-        this.setState({studentInfo : result})
-        // console.log(result)
-      })
-    //load the courses the student is taking from student_db
-    fetch(`http://localhost:${port}/courses/${id}`)
-      .then((res) => res.json())
-      .then((result) => {
-        this.setState({studentCourses : result})
-        this.setState({courseQuery : true})
-      })
-    // const json = response.json();
-    // console.log(json);
-    // this.setState({studentInfo: json});
+    //  res.cookie('Student_id', result.rows[0].id)
+    let student_id = cookies.get('student_id');
+    fetch(`http://localhost:${port}/cookie`,{
+      credentials: 'include'
+    })
+
+    // fetch(`http://localhost:${port}/login?username=krystian101&password=password123`,{credentials: 'include'})
+    //   .then((res) => {
+    //     let result = res.json();
+    //     console.log(result);
+    //     return(result)
+    //   })
+    // fetch(`http://localhost:${port}/login?username=krystian101&password=password123`, {credentials: 'include'})
+    //   .then((res) => {
+    //     let result = res.json();
+    //     console.log(result);
+    //     return(result)})
+      // .then((res) => 
+      //   {
+          fetch(`http://localhost:${port}/students/${student_id}`)
+            .then((res) => res.json())
+            .then((result) => {
+              this.setState({studentInfo : result})
+              // console.log(result)
+            })
+          fetch(`http://localhost:${port}/courses/${student_id}`)
+            .then((res) => res.json())
+            .then((result) => {
+              // console.log(result)
+              this.setState({studentCourses : result})
+              this.setState({courseQuery : true})
+            })
+      //   }
+      // )
+
   }
 
+  handleHoverProfilePicture(event) {
+    event.preventDefault()
+    console.log('here I am')
+  }
+
+  handleSelectProfilePicture = (event) => {
+    event.preventDefault()
+    // console.log('picture selected')
+    let tempInfo = this.state.studentInfo;
+    tempInfo.profile_picture = parseInt(event.target.value);
+    // console.log(tempInfo)
+    this.setState({studentInfo: tempInfo}, () => {
+      // console.log(this.state.studentInfo.profile_picture)
+      fetch(`http://localhost:${port}/profilepic?id=${this.state.studentInfo.id}&profilepic=${this.state.studentInfo.profile_picture}`)
+        .then((res) => console.log('profile picture updated'))
+    })
+  }
 
   render () {
     return (
@@ -139,9 +197,18 @@ class App extends React.Component {
           <br></br>
           <div>
             {this.Welcome()}
+            <img src={this.state.images[this.state.studentInfo.profile_picture]} height='100' overflow='hidden' border-radius='100' alt="profile pic" />
+            
+            <ProfilePicture
+              onHoverProfilePicture={this.handleHoverProfilePicture}
+              onSelectProfilePicture={this.handleSelectProfilePicture}
+              currentPicture={this.state.studentInfo.profile_picture}
+            />
+            {/* {console.log(Cookies.get())} */}
             <br></br>
             {this.Courses()}  
           </div>
+          
         </header>
       </div>
     );

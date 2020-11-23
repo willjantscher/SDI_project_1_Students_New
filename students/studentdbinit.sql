@@ -1,9 +1,9 @@
-CREATE TABLE students (id serial PRIMARY KEY, first_name text NOT NULL, last_name text NOT NULL, username varchar(20), password varchar(20));
-INSERT INTO students (first_name, last_name, username, password) VALUES
-( 'Krystian', 'Austin', 'krystian101', 'password123'),
-( 'Ozan', 'Castillo', 'OzanC', 'OzanRulz'),
-( 'Clay', 'Ponce', 'Me123', 'PonCE123'),
-( 'Fred', 'Major', 'superman', 'helloMe',);
+CREATE TABLE students (id serial PRIMARY KEY, first_name text NOT NULL, last_name text NOT NULL, username varchar(20), password varchar(20), profile_picture int);
+INSERT INTO students (first_name, last_name, username, password, profile_picture) VALUES
+( 'Krystian', 'Austin', 'krystian101', 'password123', 0),
+( 'Ozan', 'Castillo', 'OzanC', 'OzanRulz', 0),
+( 'Clay', 'Ponce', 'Me123', 'PonCE123', 0),
+( 'Fred', 'Major', 'superman', 'helloMe', 0);
 
 CREATE TABLE courses (id serial PRIMARY KEY, course text NOT NULL, teacher_first_name text, teacher_last_name text);
 INSERT INTO courses (course, teacher_first_name, teacher_last_name) VALUES 

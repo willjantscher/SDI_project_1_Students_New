@@ -13,6 +13,7 @@ services:
         - POSTGRES_PASSWORD=admin
       volumes:    # will let you start up an initial database with an sql file in the area
           - ./studentDBinit.sql:/docker-entrypoint-initdb.d/studentDBinit.sql
+          # can add persistance by adding to studentDBinit.sql upon db changes
 
     server:
       build: .
