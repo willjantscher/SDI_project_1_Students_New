@@ -51,5 +51,5 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/runtime": "^7.12.5"
   },
-  "proxy": "http://localhost:6004"
+  "proxy": "http://server:6004"
 }

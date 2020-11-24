@@ -25,6 +25,3 @@ INSERT INTO students_courses (student_id, course_id) VALUES
 ( 4, 5 );
 -- will not start with values for start/stop dates
 
-
-
-

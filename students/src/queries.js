@@ -2,13 +2,13 @@ const Pool = require('pg').Pool
 
 const pool = new Pool({
   //user required for docker/deployment
-//   user: 'admin',
+  user: 'admin',
   //for docker compose/deployment use host:'db'
-//   host: 'db',
-  host: 'localhost',
+  host: 'db',
+//   host: 'localhost',
   database: 'students_db',
   //password required for docker/deployment
-//   password: 'admin',
+  password: 'admin',
   port: 5432,
 })
 
@@ -16,7 +16,6 @@ function ping(req, res) {
     // console.log('recieved Ping')
     return res.send('pong');
 }
-
 
 // function getCookie(req, res) {
 //     // res.cookie('test', 4)
@@ -54,8 +53,6 @@ function studentLogin(req, res) {
         }
     })
 }
-
-
 function getStudents(req, res) {
     // console.log('in getStudents')
     pool.query('SELECT * FROM students ORDER BY id', (err, results) => {

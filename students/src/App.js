@@ -97,8 +97,8 @@ class App extends React.Component {
                   <tr key={course.id}>
                     <td>{course.course}</td>
                     <td>{course.teacher_first_name} {course.teacher_last_name}</td>
-                    <td><input name={i} placeholder='startdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
-                    <td><input name={i} placeholder='stopdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
+                    <td><input name={i} value={this.state.studentCourses[i].startdate} placeholder='startdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
+                    <td><input name={i} value={this.state.studentCourses[i].stopdate} placeholder='stopdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
                   </tr>
                 )
               })
@@ -172,7 +172,15 @@ class App extends React.Component {
     fetch(`/courses/${studentId}`)
       .then((res) => res.json())
         .then((res) => {
-          // console.log(res)
+          //set null values to ''
+          for (let i=0; i < res.length;  i++) {
+            if(res[i].stopdate == null) {
+              res[i].stopdate = ''
+            }
+            if(res[i].startdate == null) {
+              res[i].startdate = ''
+            }
+          }
           this.setState({studentCourses : res})
           this.setState({courseQuery : true})
       })
@@ -203,6 +211,7 @@ class App extends React.Component {
     // console.log(event.target.placeholder)
     // console.log(event.target.id)
     // console.log(event.target.name)
+    // console.log(event.target.value)
     if (event.target.placeholder === 'startdate') {
       tempInfo[event.target.name].startdate = event.target.value;
       // console.log(tempInfo)

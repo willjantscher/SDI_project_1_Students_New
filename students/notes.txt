@@ -7,11 +7,12 @@ To go into Testing mode (with local database)
     in App.js   
         set port=testPort;
     // in package.json change the proxy from 6004 to 6003
-    in server.js    
+    in queries.js    
         comment out user 
         comment out password
         change host to "localhost"
     brew services start postgresql
+    set proxy in json to http://localhost:6004
 
 Monday to do
 
@@ -36,3 +37,35 @@ CREATE two requests that will run on login
 
 responses are not parsing in react
 
+
+
+
+2. get dockerize to work with proxy
+
+
+6. gant chart
+Set proxy in the React app’s package.json file with the server container’s service name and port
+https://medium.com/@xiaolishen/develop-in-docker-a-node-backend-and-a-react-front-end-talking-to-each-other-5c522156f634
+
+
+
+
+less ~/.docker/config.json
+. indicates invisible file 
+
+code ~/.docker/config.json
+    will open the file
+https://medium.com/@airman604/getting-docker-to-work-with-a-proxy-server-fadec841194e
+
+  "proxies":
+  {
+    "default":
+    {
+      "httpProxy": "http://localhost:6003",
+      "httpsProxy": "http://localhost:6003",
+      "noProxy": "localhost,127.0.0.1"
+    }
+  }
+
+
+  

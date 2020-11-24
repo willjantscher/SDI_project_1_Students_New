@@ -5,6 +5,7 @@ const fs = require("fs")
 const bodyParser = require('body-parser')
 
 const express = require('express');
+
 // const cors = require('cors');
 const app = express();
 var cookieParser = require('cookie-parser')
@@ -22,40 +23,10 @@ app.use(
 )
 app.use(cookieParser())
 
-//allow cors
-
-// app.use(cors());
-
-// app.options('/cookie', function (req, res) {
-//     res.setHeader("Access-Control-Allow-Origin", "*");
-//     res.setHeader('Access-Control-Allow-Methods', '*');
-//     res.setHeader("Access-Control-Allow-Headers", "*");
-//     res.end();
-//   });
-// app.use(function(req, res) {
-//     res.header("Access-Control-Allow-Origin", "http://localhost");
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//   });
-
-
-// app.use(function(req, res, next) {  
-//     res.header('Access-Control-Allow-Origin', req.headers.origin);
-//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// }); 
-
-//use google drawings to design the webpage
-//finalize db format for studentDB
-//add studentDBinit.sql for other people to initialize in their containers
-//make students_courses table and post request handling
-//get courses for a student (know the courses table post format)
-
-
 const db = require('./queries')
 
 // test connections
 app.get('/ping', (req, res) => db.ping(req, res))
-
 
 // APIs
 //students table--------------------------------------------------------------------------------------------------
@@ -80,10 +51,6 @@ app.post('/students', (req, res) => db.addStudent(req, res))
 app.get('/profilepic', (req, res) => db.updateProfilePic(req, res))
 //http://localhost:6004/profilepic
 
-
-
-
-
 //courses table--------------------------------------------------------------------------------------------------
 app.get('/courses', (req, res) => db.getCourses(req, res))
 app.post('/courses', (req, res) => db.postCourse(req, res))
@@ -99,11 +66,6 @@ app.post('/students_courses', (req, res) => db.postCourse(req, res))
 //     "course_id": 2
 // }
 app.post('/schedule', (req, res) => db.updateSchedule(req, res))
-
-
-
-
-
 
 //need this to function
 app.listen(port, () => console.log(`students server running on ${port}`));
