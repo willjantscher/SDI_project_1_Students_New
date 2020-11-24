@@ -1,4 +1,4 @@
-# Student Page Microservice
+# Student Microservice
 
 This microservice is a part of a larger application that is meant to provide services to students and teachers. There are five microservices that work together; they are depicted here: https://app.diagrams.net/#G1Lv49geXhtRD7t88zu8SpjHmqQDpfSxgc. The Marketplace serves as a login/home page and is where students can view available classes and sign up for them. The Teacher page is the profile page for teachers where they can view students in their classes and post new classes to be available for students. The Student page is a profile page for students where they can view their courses, personalize their schedule, and choose a very nice profile picture. The Messaging service allows users to communicate with eachother and saves their messges. The forum service allows users to communicate in a reddit-style environment.
 
