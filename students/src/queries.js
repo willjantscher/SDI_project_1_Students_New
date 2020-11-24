@@ -18,21 +18,44 @@ function ping(req, res) {
 }
 
 
-function getCookie(req, res) {
-    // res.cookie('test', 4)
-    // res.cookie( 'testing','something', { httpOnly: false });
-    // res.cookie('student_id', 3)
-    let output = req.cookies.student_id
-    console.log(output)
-    // let cookie = '5'
-    res.cookie('AAAAAAAAAA', 12)
-        // .header('Access-Control-Allow-Origin','http://localhost:6002')
-        // .header('Access-Control-Allow-Headers','http://localhost:6002')
-        // .header('Access-Control-Allow-Credentials', true)
-        // .header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-    res.json('yay')
-}
+// function getCookie(req, res) {
+//     // res.cookie('test', 4)
+//     // res.cookie( 'testing','something', { httpOnly: false });
+//     // res.cookie('student_id', 3)
+//     let output = req.cookies.student_id
+//     console.log(output)
+//     // let cookie = '5'
+//     res.cookie('AAAAAAAAAA', 12)
+//         // .header('Access-Control-Allow-Origin','http://localhost:6002')
+//         // .header('Access-Control-Allow-Headers','http://localhost:6002')
+//         // .header('Access-Control-Allow-Credentials', true)
+//         // .header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+//     res.json('yay')
+// }
 //students table--------------------------------------------------------------------------------------------------
+function studentLogin(req, res) {
+    let username = req.query.username
+    let password = req.query.password
+    pool.query('SELECT * FROM students WHERE username = $1 AND password = $2', [username, password], (err, result) => {
+        if (err) {
+            throw err
+        }
+        //uf user and pass checks out
+        if (result.rows[0]) {
+            let studentId = result.rows[0].id
+            console.log(`student logged in with student id ${studentId}`)
+            // set a cookie with the student id
+            res.cookie('student_id', studentId)
+            //send back student_id
+            res.status(200).json(studentId)
+        }
+        else {
+            res.status(403).send('0')
+        }
+    })
+}
+
+
 function getStudents(req, res) {
     // console.log('in getStudents')
     pool.query('SELECT * FROM students ORDER BY id', (err, results) => {
@@ -78,29 +101,8 @@ function updateProfilePic(req, res) {
     })
 
 }
-// http://localhost:6004/profilepic?id=1&profilepic=1
-function studentLogin(req, res) {
-    let username = req.query.username
-    let password = req.query.password
-    res.cookie('anothertest', 'stuff')
-    pool.query('SELECT * FROM students WHERE username = $1 AND password = $2', [username, password], (err, result) => {
-        if (err) {
-            throw err
-        }
-        //uf user and pass checks out
-        if (result.rows[0]) {
-            console.log(result.rows[0].id)
-            res.cookie('01001', 00000)
-            res.cookie('student_id', result.rows[0].id)
-            //send back student_id
-            res.status(200).send(`${result.rows[0].id}`)
-        }
-        else {
-            res.status(403).send('0')
-        }
-    })
-    //send back student id
-}
+// /profilepic?id=1&profilepic=1
+
 
 //courses table--------------------------------------------------------------------------------------------------
 function getCourses(req, res) {
@@ -158,6 +160,6 @@ module.exports = {
     getStudentCourses,
     updateProfilePic,
     studentLogin,
-    postCourse,
-    getCookie
+    postCourse
+    // getCookie
 }

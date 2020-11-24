@@ -8,7 +8,6 @@
 //npm run start
 
 
-
 import './App.css';
 import React from 'react'
 import loadingGif from './Loading2.gif'
@@ -27,10 +26,10 @@ import Cookies from 'universal-cookie';
 const cookies = new Cookies();
 
 // used for testing
-const testPort = 6004;
+// const testPort = 6004;
 // const dockerPort = 6003;
 //change port if working off local db or dockerizing
-const port = testPort;
+// const port = testPort;
 
 
 class App extends React.Component {
@@ -38,7 +37,7 @@ class App extends React.Component {
     super(props)
     this.state = {
       studentInfo: {
-        id: 1,
+        id: "",
         first_name: "",
         last_name: "",
         username: "",
@@ -131,54 +130,52 @@ class App extends React.Component {
 
   // do componenet did mount to get page setup with info for current student passed in as a cookie
   componentDidMount() { 
-    //for testing, providing a simulated id that will be passed in via a cookie
-    //  res.cookie('Student_id', result.rows[0].id)
-    fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
-        .then((res) => {console.log(res.json())})
-
-    let student_id = cookies.get('student_id');
-    fetch('/students')
-      .then((res) => {console.log(res.json())})
-    fetch(`/cookie`,{
-      credentials: 'include'
-    }).then((res) => {console.log(res.json())})
-
-    // fetch(`http://localhost:${port}/login?username=krystian101&password=password123`,{credentials: 'include'})
-    //   .then((res) => {
-    //     let result = res.json();
-    //     console.log(result);
-    //     return(result)
+    //for testing, simulate a login requestm (include react localhost for others sending)
+    // fetch('/login?username=superman&password=helloMe', { credentials: 'include' }) //this will set a cookie with the student id
+    //   .then(() => {
+    //     var studentId = cookies.get('student_id');
+    //     // console.log(studentId)
+    //     return(studentId)
     //   })
-    // fetch(`http://localhost:${port}/login?username=krystian101&password=password123`, {credentials: 'include'})
     //   .then((res) => {
-    //     let result = res.json();
-    //     console.log(result);
-    //     return(result)})
-      // .then((res) => 
-      //   {
-          // fetch(`http://localhost:${port}/students/${student_id}`)
-          //   .then((res) => res.json())
-          //   .then((result) => {
-          //     this.setState({studentInfo : result})
-          //     // console.log(result)
-          //   })
-          // fetch(`http://localhost:${port}/courses/${student_id}`)
-          //   .then((res) => res.json())
-          //   .then((result) => {
-          //     // console.log(result)
-          //     this.setState({studentCourses : result})
-          //     this.setState({courseQuery : true})
-          //   })
-      //   }
-      // )
+    //     fetch(`/students/${res}`)
+    //       .then((res) => res.json())
+    //         .then((res) => {
+    //           // console.log(res)
+    //           this.setState({studentInfo : res})
+    //       })
+    //       fetch(`/courses/${res}`)
+    //         .then((res) => res.json())
+    //           .then((res) => {
+    //             console.log(res)
+    //             this.setState({studentCourses : res})
+    //             this.setState({courseQuery : true})
+    //         })
+    //   })
 
+      // below code for app
+  var studentId = cookies.get('student_id');
+  fetch(`/students/${studentId}`)
+    .then((res) => res.json())
+      .then((res) => {
+        // console.log(res)
+        this.setState({studentInfo : res})
+    })
+    fetch(`/courses/${studentId}`)
+      .then((res) => res.json())
+        .then((res) => {
+          // console.log(res)
+          this.setState({studentCourses : res})
+          this.setState({courseQuery : true})
+      })
   }
 
-  handleHoverProfilePicture(event) {
-    event.preventDefault()
-    console.log('here I am')
-  }
+  // handleHoverProfilePicture(event) {
+  //   event.preventDefault()
+  //   console.log('here I am')
+  // }
 
+  //select a new profile picture
   handleSelectProfilePicture = (event) => {
     event.preventDefault()
     // console.log('picture selected')
@@ -187,8 +184,8 @@ class App extends React.Component {
     // console.log(tempInfo)
     this.setState({studentInfo: tempInfo}, () => {
       // console.log(this.state.studentInfo.profile_picture)
-      fetch(`http://localhost:${port}/profilepic?id=${this.state.studentInfo.id}&profilepic=${this.state.studentInfo.profile_picture}`)
-        .then((res) => console.log('profile picture updated'))
+      fetch(`/profilepic?id=${this.state.studentInfo.id}&profilepic=${this.state.studentInfo.profile_picture}`)
+        .then((res) => console.log(`profile picture updated`))
     })
   }
 
@@ -205,7 +202,7 @@ class App extends React.Component {
             <img src={this.state.images[this.state.studentInfo.profile_picture]} height='100' overflow='hidden' border-radius='100' alt="profile pic" />
             
             <ProfilePicture
-              onHoverProfilePicture={this.handleHoverProfilePicture}
+              // onHoverProfilePicture={this.handleHoverProfilePicture}
               onSelectProfilePicture={this.handleSelectProfilePicture}
               currentPicture={this.state.studentInfo.profile_picture}
             />

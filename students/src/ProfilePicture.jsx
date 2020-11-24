@@ -1,4 +1,5 @@
 function ProfilePicture(props) {
+    // console.log(props.currentPicture)
     return(
         <div>
             <div>Profile Picture</div>
