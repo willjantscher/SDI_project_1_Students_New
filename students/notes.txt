@@ -6,6 +6,7 @@ Functionality:
 To go into Testing mode (with local database)
     in App.js   
         set port=testPort;
+    // in package.json change the proxy from 6004 to 6003
     in server.js    
         comment out user 
         comment out password
@@ -30,3 +31,8 @@ also add db queries to render and keep searching for the database periodically? 
 CREATE two requests that will run on login
     one sets cookie
     the other will send back the info
+
+
+
+responses are not parsing in react
+

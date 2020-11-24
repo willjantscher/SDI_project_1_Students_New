@@ -1,29 +1,42 @@
 //start server/db with nodemon server.js,
 //start react app with npm start
     //in cd src
-// const fs = require("fs")
+const fs = require("fs")
+const bodyParser = require('body-parser')
 
 const express = require('express');
-const bodyParser = require('body-parser')
+// const cors = require('cors');
+const app = express();
 var cookieParser = require('cookie-parser')
 
-const path = require('path');
-const app = express();
+// const path = require('path');
+
 const port = 6004;
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json())
 app.use(
     bodyParser.urlencoded({
         extended: true,
     })
 )
-app.use(bodyParser.json())
 app.use(cookieParser())
 
 //allow cors
-var cors = require('cors');
-app.use(cors());
+
+// app.use(cors());
+
+// app.options('/cookie', function (req, res) {
+//     res.setHeader("Access-Control-Allow-Origin", "*");
+//     res.setHeader('Access-Control-Allow-Methods', '*');
+//     res.setHeader("Access-Control-Allow-Headers", "*");
+//     res.end();
+//   });
+// app.use(function(req, res) {
+//     res.header("Access-Control-Allow-Origin", "http://localhost");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//   });
+
 
 // app.use(function(req, res, next) {  
 //     res.header('Access-Control-Allow-Origin', req.headers.origin);

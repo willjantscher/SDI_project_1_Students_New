@@ -133,10 +133,15 @@ class App extends React.Component {
   componentDidMount() { 
     //for testing, providing a simulated id that will be passed in via a cookie
     //  res.cookie('Student_id', result.rows[0].id)
+    fetch('https://pokeapi.co/api/v2/pokemon?limit=20')
+        .then((res) => {console.log(res.json())})
+
     let student_id = cookies.get('student_id');
-    fetch(`http://localhost:${port}/cookie`,{
+    fetch('/students')
+      .then((res) => {console.log(res.json())})
+    fetch(`/cookie`,{
       credentials: 'include'
-    })
+    }).then((res) => {console.log(res.json())})
 
     // fetch(`http://localhost:${port}/login?username=krystian101&password=password123`,{credentials: 'include'})
     //   .then((res) => {
@@ -151,19 +156,19 @@ class App extends React.Component {
     //     return(result)})
       // .then((res) => 
       //   {
-          fetch(`http://localhost:${port}/students/${student_id}`)
-            .then((res) => res.json())
-            .then((result) => {
-              this.setState({studentInfo : result})
-              // console.log(result)
-            })
-          fetch(`http://localhost:${port}/courses/${student_id}`)
-            .then((res) => res.json())
-            .then((result) => {
-              // console.log(result)
-              this.setState({studentCourses : result})
-              this.setState({courseQuery : true})
-            })
+          // fetch(`http://localhost:${port}/students/${student_id}`)
+          //   .then((res) => res.json())
+          //   .then((result) => {
+          //     this.setState({studentInfo : result})
+          //     // console.log(result)
+          //   })
+          // fetch(`http://localhost:${port}/courses/${student_id}`)
+          //   .then((res) => res.json())
+          //   .then((result) => {
+          //     // console.log(result)
+          //     this.setState({studentCourses : result})
+          //     this.setState({courseQuery : true})
+          //   })
       //   }
       // )
 

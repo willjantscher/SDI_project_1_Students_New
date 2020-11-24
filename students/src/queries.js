@@ -1,7 +1,3 @@
-// import Cookies from 'universal-cookie';
-// const cookies = new Cookies();
-
-
 const Pool = require('pg').Pool
 
 const pool = new Pool({
@@ -24,15 +20,17 @@ function ping(req, res) {
 
 function getCookie(req, res) {
     // res.cookie('test', 4)
-
     // res.cookie( 'testing','something', { httpOnly: false });
-    
     // res.cookie('student_id', 3)
     let output = req.cookies.student_id
     console.log(output)
     // let cookie = '5'
-    res.cookie('AAAAAAAAAA', 33333)
-        .send('success')
+    res.cookie('AAAAAAAAAA', 12)
+        // .header('Access-Control-Allow-Origin','http://localhost:6002')
+        // .header('Access-Control-Allow-Headers','http://localhost:6002')
+        // .header('Access-Control-Allow-Credentials', true)
+        // .header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+    res.json('yay')
 }
 //students table--------------------------------------------------------------------------------------------------
 function getStudents(req, res) {
