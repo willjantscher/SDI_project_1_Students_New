@@ -145,6 +145,17 @@ function postCourse(req, res) {
     })
     // console.log(student_id, course_id)
 }
+function updateSchedule(req, res) {
+    const { student_id, course_id, startdate, stopdate } = req.body  
+    // console.log(typeof student_id)
+    pool.query('UPDATE students_courses SET startdate = ($3), stopdate = ($4) WHERE student_id = ($1) AND course_id = ($2)', [student_id, course_id, startdate, stopdate], function(error, results) {
+        if (error) {
+            throw error
+        }
+        // console.log('thing')
+        res.status(200).json('Schedule updated')
+    })
+}
 
 
 
@@ -160,6 +171,6 @@ module.exports = {
     getStudentCourses,
     updateProfilePic,
     studentLogin,
-    postCourse
-    // getCookie
+    postCourse,
+    updateSchedule
 }

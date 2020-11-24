@@ -31,7 +31,6 @@ const cookies = new Cookies();
 //change port if working off local db or dockerizing
 // const port = testPort;
 
-
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -91,11 +90,15 @@ class App extends React.Component {
         switch (this.state.courseQuery) {
             case true:
               // console.log('courses found')
+              let i = -1;
               let output = this.state.studentCourses.map((course) => {
+                i++
                 return (
                   <tr key={course.id}>
                     <td>{course.course}</td>
                     <td>{course.teacher_first_name} {course.teacher_last_name}</td>
+                    <td><input name={i} placeholder='startdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
+                    <td><input name={i} placeholder='stopdate' type="date" id={course.id} onChange={this.handleDateChange}></input></td>
                   </tr>
                 )
               })
@@ -107,6 +110,8 @@ class App extends React.Component {
                     <tr>
                       <td>Class</td>
                       <td>Instructor</td>
+                      <td>Start Date</td>
+                      <td>Stop Date</td>
                     </tr>
                   </thead>
                   <tbody>{output}</tbody>
@@ -127,6 +132,9 @@ class App extends React.Component {
     </div>
     )   
   }
+
+
+
 
   // do componenet did mount to get page setup with info for current student passed in as a cookie
   componentDidMount() { 
@@ -187,6 +195,42 @@ class App extends React.Component {
       fetch(`/profilepic?id=${this.state.studentInfo.id}&profilepic=${this.state.studentInfo.profile_picture}`)
         .then((res) => console.log(`profile picture updated`))
     })
+  }
+
+  handleDateChange = (event) => {
+    event.preventDefault();
+    let tempInfo = this.state.studentCourses
+    // console.log(event.target.placeholder)
+    // console.log(event.target.id)
+    // console.log(event.target.name)
+    if (event.target.placeholder === 'startdate') {
+      tempInfo[event.target.name].startdate = event.target.value;
+      // console.log(tempInfo)
+    }
+    if (event.target.placeholder === 'stopdate') {
+      tempInfo[event.target.name].stopdate = event.target.value;
+      // console.log(tempInfo)
+    }
+    this.setState({studentCourses: tempInfo}, () => {
+      let data = 
+      {
+        student_id: this.state.studentCourses[event.target.name].student_id,
+        course_id: this.state.studentCourses[event.target.name].course_id,
+        startdate: this.state.studentCourses[event.target.name].startdate,
+        stopdate: this.state.studentCourses[event.target.name].stopdate
+      }
+      // console.log(data)
+      fetch(`/schedule`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data),
+      })
+      .then((res) => res.json())
+      .then((res) => {console.log(res)})
+      })
+
   }
 
   render () {

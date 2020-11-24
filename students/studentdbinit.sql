@@ -13,7 +13,7 @@ INSERT INTO courses (course, teacher_first_name, teacher_last_name) VALUES
 ( 'English', 'Charles', 'Richard'),
 ( 'Poetry', 'William', 'Stillsword');
 
-CREATE TABLE students_courses (id serial PRIMARY KEY, student_id int, course_id int);
+CREATE TABLE students_courses (id serial PRIMARY KEY, student_id int, course_id int, startDate text, stopDate text);
 INSERT INTO students_courses (student_id, course_id) VALUES 
 ( 1, 1 ),
 ( 1, 3 ),
@@ -23,6 +23,7 @@ INSERT INTO students_courses (student_id, course_id) VALUES
 ( 3, 3 ),
 ( 4, 4 ),
 ( 4, 5 );
+-- will not start with values for start/stop dates
 
 
 

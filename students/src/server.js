@@ -59,7 +59,9 @@ app.get('/ping', (req, res) => db.ping(req, res))
 
 // APIs
 //students table--------------------------------------------------------------------------------------------------
-// returns all students and info
+app.get('/login', (req, res) => db.studentLogin(req, res))
+//http://localhost:60024/login?username=something&password=something
+
 app.get('/students', (req, res) => db.getStudents(req, res))
 // return student with requested id
 app.get('/students/:studentId', (req, res) => db.getStudentById(req, res));
@@ -80,12 +82,6 @@ app.get('/profilepic', (req, res) => db.updateProfilePic(req, res))
 
 
 
-//login query
-//will take in username and password
-//respond with true or false
-//if true, set cookie
-app.get('/login', (req, res) => db.studentLogin(req, res))
-//http://localhost:6004/login?username=something&password=something
 
 
 //courses table--------------------------------------------------------------------------------------------------
@@ -102,9 +98,7 @@ app.post('/students_courses', (req, res) => db.postCourse(req, res))
 //     "student_id": 1,
 //     "course_id": 2
 // }
-app.get('/cookie', (req, res) => db.getCookie(req, res))
-
-
+app.post('/schedule', (req, res) => db.updateSchedule(req, res))
 
 
 
