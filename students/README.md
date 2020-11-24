@@ -1,70 +1,11 @@
-# Getting Started with Create React App
+# Student Page Microservice
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This microservice is a part of a larger application that is meant to provide services to students and teachers. There are five microservices that work together; they are depicted here: https://app.diagrams.net/#G1Lv49geXhtRD7t88zu8SpjHmqQDpfSxgc. The Marketplace serves as a login/home page and is where students can view available classes and sign up for them. The Teacher page is the profile page for teachers where they can view students in their classes and post new classes to be available for students. The Student page is a profile page for students where they can view their courses, personalize their schedule, and choose a very nice profile picture. The Messaging service allows users to communicate with eachother and saves their messges. The forum service allows users to communicate in a reddit-style environment.
 
-## Available Scripts
+## Running the Student Microservice
+To run the student microservice, simply type docker run willjantscher/students_server:latest in your console and press enter. Then, open your browser to http://localhost:6001. 
 
-In the project directory, you can run:
+Note: this service is meant to be used in conjunction with the other services. Students are directed to this page from the Marketplace. When a student logs in, a query is sent to localhost:6004 (students db hosted in students microservice) and the database is queried for that username and password. If found, a cookie is created with the student's id. On load, the student page (localhost:6001) pulls the id from the cookie and displays the student's name, profile picture, classes, and personalized schedule (querried from stored db). 
 
-### `npm start`
+To simulate a login request, open another tab to: http://localhost:6004/login?username=krystian101&password=password123 and then reload the localhost:6001 page. It should now load with Krystian's information.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
