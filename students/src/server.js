@@ -44,7 +44,6 @@ app.post('/students', (req, res) => db.addStudent(req, res))
     //     "last_name": "dubm",
     //     "username": "hello",
     //     "password": "hmmm",
-    //     "credit": "5443",
     //     "profile_picture: 1"
     // }
 //update profile picture in database
