@@ -31,7 +31,7 @@ app.get('/ping', (req, res) => db.ping(req, res))
 // APIs
 //students table--------------------------------------------------------------------------------------------------
 app.get('/login', (req, res) => db.studentLogin(req, res))
-//http://localhost:60024/login?username=something&password=something
+//http://localhost:6004/login?username=something&password=something
 
 app.get('/students', (req, res) => db.getStudents(req, res))
 // return student with requested id
