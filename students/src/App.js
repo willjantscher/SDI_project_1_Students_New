@@ -10,6 +10,14 @@
 
 import './App.css';
 import React from 'react'
+// import ReactDOM from "react-dom";
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route,
+//   Link
+// } from "react-router-dom";
+
 import loadingGif from './Loading2.gif'
 import studyingGif from './Studying.gif'
 import ProfilePicture from './ProfilePicture'
@@ -23,6 +31,9 @@ import dog_3 from './Profile_pictures/dog_3.jpg'
 import dog_4 from './Profile_pictures/dog_4.jpg'
 
 import Cookies from 'universal-cookie';
+
+
+
 const cookies = new Cookies();
 
 // used for testing
@@ -245,6 +256,21 @@ class App extends React.Component {
   render () {
     return (
       <div className="App">
+        <nav>
+          <div>
+            <button id='test'><a href={"http://localhost:6004/ping"}>Ping</a></button>
+            <div className="divider"/>
+            <button id='marketplace'><a href={"http://localhost:5001"}>Marketplace</a></button>
+            <div className="divider"/>
+            <button id='forum'><a href={"http://localhost:4001"}>Forum</a></button>
+            <div className="divider"/>
+            <button id='messaging'><a href={"http://localhost:7001"}>Messaging</a></button>
+            <div className="divider"/>
+            <button id='student'><a href={"http://localhost:6001"}>Student Home Page</a></button>
+            <div className="divider"/>
+            <button id='teacher'><a href={"http://localhost:3001"}>Teacher Home Page</a></button>
+          </div>
+        </nav>
         <header className="App-header">
           <img src={studyingGif} width="400" alt="loading" />
           <br></br>

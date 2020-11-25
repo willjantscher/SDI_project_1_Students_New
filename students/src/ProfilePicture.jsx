@@ -1,9 +1,9 @@
 function ProfilePicture(props) {
     // console.log(props.currentPicture)
+    // onMouseOver not working yet :/
     return(
         <div>
             <div>Profile Picture</div>
-            <br></br>
             <select defaultValue={props.currentPicture} onChange={props.onSelectProfilePicture}>
                 <option value='0' onMouseOver={props.onHoverProfilePicture}>Dog Picture 0</option>  
                 <option value='1' onMouseOver={props.onHoverProfilePicture}>Dog Picture 1</option>
@@ -14,7 +14,5 @@ function ProfilePicture(props) {
         </div>
     )
 }
-
-//on mouse over not currently working :/
 
 export default ProfilePicture

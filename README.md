@@ -7,5 +7,5 @@ To run the student microservice, clone and fork this repository and run docker-c
 
 Note: this service is meant to be used in conjunction with the other services. Students are directed to this page from the Marketplace. When a student logs in, a query is sent to localhost:6004 (students db hosted in students microservice) and the database is queried for that username and password. If found, a cookie is created with the student's id. On load, the student page (localhost:6001) pulls the id from the cookie and displays the student's name, profile picture, classes, and personalized schedule (querried from stored db). 
 
-To simulate a login request, open another tab to: http://localhost:6004/login?username=krystian101&password=password123 and then reload the localhost:6001 page. It should now load with Krystian's information.
+To simulate a login request, open another tab (or use postman) to: http://localhost:6004/login?username=krystian101&password=password123 and then reload the localhost:6001 page. It should now load with Krystian's information.
 

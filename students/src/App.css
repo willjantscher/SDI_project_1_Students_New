@@ -33,9 +33,22 @@ table.classy thead th:first-child {
 }
 
 
-
-
-
+button {
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 20px;
+}
+nav {
+  text-align: left;
+}
+.divider {
+  width:50px;
+  height:auto;
+  display:inline-block;
+}
+.right {
+  text-align: right;
+}
 
 
 

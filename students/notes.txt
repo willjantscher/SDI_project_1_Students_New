@@ -68,4 +68,10 @@ https://medium.com/@airman604/getting-docker-to-work-with-a-proxy-server-fadec84
   }
 
 
-  
+
+1. get dockerized stuff to work on another computer
+2. add routes to send to other people's pages
+
+
+
+
