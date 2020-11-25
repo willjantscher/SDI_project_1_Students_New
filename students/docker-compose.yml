@@ -16,7 +16,7 @@ services:
           # can add persistance by adding to studentDBinit.sql upon db changes
 
     server:
-      build: .
+      build: .    # . this will make the dockercompose build the server itself (in the local environment)
       command: npm run serverStart
       image: willjantscher/students_server:latest #make sure to include this!, references top-folder_service-name
       environment:
